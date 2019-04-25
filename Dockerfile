@@ -42,5 +42,5 @@ RUN apk --update add curl xz build-base libressl-dev ca-certificates bash && \
     apk del xz build-base && \
     rm -rf /var/cache/apk/*
 
-#ENTRYPOINT ["/usr/local/sbin/inadyn", "--foreground"]
+ENTRYPOINT ["/usr/local/sbin/inadyn", "--foreground --pidfile=/var/run/inadyn.pid"]
 CMD ["--loglevel=debug"]
