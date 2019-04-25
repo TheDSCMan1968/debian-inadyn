@@ -10,7 +10,7 @@
 
 FROM alpine:edge
 
-ENV INADYN_RELEASE https://github.com/troglobit/inadyn/releases/download/v2.2.1/inadyn-2.2.1.tar.xz
+ENV INADYN_RELEASE https://github.com/troglobit/inadyn/releases/download/v2.5/inadyn-2.5.tar.xz
 ENV LIBITE_RELEASE https://github.com/troglobit/libite/releases/download/v2.0.1/libite-2.0.1.tar.xz
 ENV LIBCONFUSE_RELEASE https://github.com/martinh/libconfuse/releases/download/v3.2.1/confuse-3.2.1.tar.xz
 
@@ -42,5 +42,5 @@ RUN apk --update add curl xz build-base libressl-dev ca-certificates bash && \
     apk del xz build-base && \
     rm -rf /var/cache/apk/*
 
-ENTRYPOINT ["/usr/local/sbin/inadyn", "--foreground --pidfile=/var/run/inadyn.pid"]
+ENTRYPOINT ["/usr/local/sbin/inadyn", "--foreground"]
 CMD ["--loglevel=debug"]
