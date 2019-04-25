@@ -14,7 +14,7 @@ ENV INADYN_RELEASE https://github.com/troglobit/inadyn/releases/download/v2.5/in
 ENV LIBITE_RELEASE https://github.com/troglobit/libite/releases/download/v2.0.1/libite-2.0.1.tar.xz
 ENV LIBCONFUSE_RELEASE https://github.com/martinh/libconfuse/releases/download/v3.2.1/confuse-3.2.1.tar.xz
 
-RUN apk --update add curl xz build-base libressl-dev ca-certificates bash && \
+RUN apk --update add curl xz build-base libressl-dev ca-certificates bash  && \
     mkdir -p /tmp/src/libite /tmp/src/libconfuse /tmp/src/inadyn && \
     # Libite
     curl -Lo /tmp/src/libite.tar.xz $LIBITE_RELEASE && \
@@ -40,7 +40,10 @@ RUN apk --update add curl xz build-base libressl-dev ca-certificates bash && \
     # Cleanup
     rm -rf /tmp/src && \
     apk del xz build-base && \
-    rm -rf /var/cache/apk/*
+    rm -rf /var/cache/apk/* && \
+    addgroup --gid=816 abc && \
+    adduser --disabled-password --gecos "" --home "$(pwd)" --ingroup abc --no-create-home --uid 816 abc
 
-ENTRYPOINT ["/usr/local/sbin/inadyn", "--foreground"]
-CMD ["--loglevel=debug"]
+#ENTRYPOINT ["/usr/local/sbin/inadyn", "--foreground", "--drop-privs=abc:abc"]
+#CMD ["--loglevel=debug"]
+CMD ["/bin/bash"]
