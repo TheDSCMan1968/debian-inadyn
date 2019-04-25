@@ -42,8 +42,11 @@ RUN apk --update add curl xz build-base libressl-dev ca-certificates bash  && \
     apk del xz build-base && \
     rm -rf /var/cache/apk/* && \
     addgroup --gid=816 abc && \
-    adduser --disabled-password --gecos "" --home "$(pwd)" --ingroup abc --no-create-home --uid 816 abc
+    adduser --disabled-password --gecos "" --home "$(pwd)" --ingroup abc --no-create-home --uid 816 abc && \
+    mkdir -p /usr/local/var/run && \
+    mkdir -p /usr/local/var/cache
+    
+VOLUME [/usr/local/etc /usr/local/var/run /usr/local/var/cache]
 
-#ENTRYPOINT ["/usr/local/sbin/inadyn", "--foreground", "--drop-privs=abc:abc"]
-#CMD ["--loglevel=debug"]
-CMD ["/bin/bash"]
+ENTRYPOINT ["/usr/local/sbin/inadyn", "--loglevel=debug", "--foreground", "--drop-privs=abc:abc", "--pidfile=/var/run/inadyn.pid"]
+#CMD ["tail -f /dev/null"]
