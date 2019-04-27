@@ -10,7 +10,7 @@
 
 FROM alpine:edge
 
-ENV INADYN_RELEASE https://github.com/troglobit/inadyn/releases/download/v2.5/inadyn-2.5.tar.xz
+ENV INADYN_RELEASE https://github.com/troglobit/inadyn/releases/download/v1.99.15/inadyn-1.99.15.tar.xz
 ENV LIBITE_RELEASE https://github.com/troglobit/libite/releases/download/v2.0.1/libite-2.0.1.tar.xz
 ENV LIBCONFUSE_RELEASE https://github.com/martinh/libconfuse/releases/download/v3.2.1/confuse-3.2.1.tar.xz
 
@@ -93,14 +93,14 @@ RUN apk --update add curl xz build-base libressl-dev ca-certificates bash  && \
     rm -rf /tmp/src && \
     apk del xz build-base && \
     rm -rf /var/cache/apk/* && \
-    addgroup --gid=816 abc && \
-    adduser --disabled-password --gecos "" --home "$(pwd)" --ingroup abc --no-create-home --uid 816 abc && \
+#    addgroup --gid=816 abc && \
+#    adduser --disabled-password --gecos "" --home "$(pwd)" --ingroup abc --no-create-home --uid 816 abc && \
     mkdir -p /usr/local/var/run && \
     mkdir -p /usr/local/var/cache && \
-    chown abc:abc /usr/local/var/run /usr/local/var/cache && \
+#    chown abc:abc /usr/local/var/run /usr/local/var/cache && \
     chmod 777 /usr/local/var/run /usr/local/var/cache
      
 VOLUME /usr/local/etc /usr/local/var/run /usr/local/var/cache
 
-ENTRYPOINT ["/usr/local/sbin/inadyn", "--loglevel=debug", "--foreground", "--drop-privs=abc:abc", "--pidfile=/usr/local/var/run/inadyn.pid", "--cache-dir=/usr/local/var/cache"]
+ENTRYPOINT ["/usr/local/sbin/inadyn", "--loglevel=debug", "--foreground", "--pidfile=/usr/local/var/run/inadyn.pid", "--cache-dir=/usr/local/var/cache"]
 
