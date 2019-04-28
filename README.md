@@ -1,4 +1,4 @@
-# Debian + Alpine Linux Docker Image
+# Debian + Inadyn 1.99 Docker Image for DNSOMatic
 
 This repository contains a Dockerfile for building a
 lighweight Docker image with the [inadyn](http://troglobit.com/inadyn.html)
